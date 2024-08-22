@@ -1,0 +1,21 @@
+services:
+  app:
+    build:
+      dockerfile: local.Dockerfile
+    container_name: go-chat-container
+    restart: always
+    volumes:
+      - .:/app
+    ports:
+      - "1237:1237"
+    networks:
+      - pg
+      - redis
+
+networks:
+  pg:
+    name: pg
+    external: true
+  redis:
+    name: redis
+    external: true

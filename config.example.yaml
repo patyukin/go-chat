@@ -1,0 +1,10 @@
+http_port: 1237
+read_timeout: 10
+write_timeout: 10
+min_log_level: "debug"
+postgresql:
+  host: "db"
+  port: 5432
+  user: ""
+  password: ""
+  database: "chat"

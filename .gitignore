@@ -1,0 +1,6 @@
+.idea
+/bin/*
+*.key
+*.pub
+config.yaml
+go_build_chat
