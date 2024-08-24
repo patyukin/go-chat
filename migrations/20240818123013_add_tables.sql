@@ -11,7 +11,7 @@ CREATE TABLE users
 CREATE TABLE rooms
 (
     id         UUID                  DEFAULT uuid_generate_v4() PRIMARY KEY,
-    name       VARCHAR(100) NOT NULL,
+    name       VARCHAR(100) NOT NULL UNIQUE,
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+const accessToken = "access_token"
+
 func (h *Handler) SignInHandler(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Error().Err(err).Msgf("failed to sign in, error: %v", err)
@@ -25,7 +27,7 @@ func (h *Handler) SignInHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.SetCookie(w, &http.Cookie{
-		Name:     "access_token",
+		Name:     accessToken,
 		Value:    tokens.AccessToken,
 		Expires:  time.Now().Add(24 * time.Hour),
 		Path:     "/",
@@ -49,6 +51,7 @@ func (h *Handler) PageSignInHandler(w http.ResponseWriter, r *http.Request) {
 	signInTemplate, err := template.ParseFiles("internal/templates/sign-in.html")
 	err = signInTemplate.Execute(w, nil)
 	if err != nil {
+		log.Error().Msgf("failed to render page, error: %v", err)
 		http.Error(w, "Unable to render page", http.StatusInternalServerError)
 	}
 }

@@ -3,4 +3,5 @@
 *.key
 *.pub
 config.yaml
+config-local.yaml
 go_build_chat

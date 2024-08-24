@@ -61,6 +61,7 @@ func main() {
 	srv := server.New(rtr)
 
 	go func() {
+		log.Info().Msgf("starting server on port: %d", cfg.HttpPort)
 		if err = srv.Run(fmt.Sprintf(":%d", cfg.HttpPort)); err != nil {
 			log.Error().Msgf("failed running http server: %v", err)
 			errCh <- err
