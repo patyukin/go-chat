@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gorilla/websocket"
 	"github.com/patyukin/go-chat/internal/handler/dto"
+	"github.com/patyukin/go-chat/pkg/httperror"
 	"github.com/rs/zerolog/log"
 	"maps"
 	"net/http"
@@ -23,7 +24,7 @@ func (h *Handler) WsRoomHandler(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Error().Msgf("unable to get user uuid")
-		http.Error(w, "Unable to render page", http.StatusBadRequest)
+		httperror.SendError(w, "Unable to render page", http.StatusBadRequest)
 		return
 	}
 

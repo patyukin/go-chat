@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Вход</title>
 </head>
 <body>
-<h1>Login</h1>
+<h1>Вход</h1>
 <form action="/sign-in" method="post">
     <label for="login">Username:</label><br>
     <input type="text" id="login" name="login" required><br><br>
     <label for="password">Password:</label><br>
     <input type="password" id="password" name="password" required><br><br>
-    <input type="submit" value="Login">
+    <input type="submit" value="Вход">
 </form>
+<div style="padding: 20px">
+    Не зарегистрированы?<br/><a href="/sign-up">Регистрация</a>
+</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/patyukin/go-chat/pkg/httperror"
 	"github.com/rs/zerolog/log"
 	"html/template"
 	"net/http"
@@ -10,14 +11,14 @@ func (h *Handler) PageMainHandler(w http.ResponseWriter, r *http.Request) {
 	userUUID := r.Header.Get("X-User-UUID")
 	if userUUID == "" {
 		log.Error().Msgf("unable to get user uuid")
-		http.Error(w, "Unable to render page", http.StatusBadRequest)
+		httperror.SendError(w, "Unable to render page", http.StatusBadRequest)
 		return
 	}
 
 	data, err := h.uc.PageMainUseCase(r.Context(), userUUID)
 	if err != nil {
 		log.Error().Msgf("failed to get main page data, error: %v", err)
-		http.Error(w, "Unable to render page", http.StatusInternalServerError)
+		httperror.SendError(w, "Unable to render page", http.StatusInternalServerError)
 		return
 	}
 
@@ -28,6 +29,7 @@ func (h *Handler) PageMainHandler(w http.ResponseWriter, r *http.Request) {
 
 	mainTemplate, err := template.ParseFiles("internal/templates/main.html")
 	if err = mainTemplate.Execute(w, data); err != nil {
-		http.Error(w, "Unable to render page", http.StatusInternalServerError)
+		httperror.SendError(w, "Unable to render page", http.StatusInternalServerError)
+		return
 	}
 }

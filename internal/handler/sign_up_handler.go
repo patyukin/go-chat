@@ -27,10 +27,18 @@ func (h *Handler) SignUpHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/sign-in", http.StatusFound)
 }
 
-func (h *Handler) PageSignUpHandler(w http.ResponseWriter, r *http.Request) {
-	signInTemplate, err := template.ParseFiles("internal/templates/sign-up.html")
+func (h *Handler) PageSignUpHandler(w http.ResponseWriter, _ *http.Request) {
+	signInTemplate, err := template.ParseFiles("./internal/templates/sign-up.html")
+	if err != nil {
+		log.Error().Msgf("failed to render page, error: %v", err)
+		httperror.SendError(w, "Unable to render page", http.StatusInternalServerError)
+		return
+	}
+
 	err = signInTemplate.Execute(w, nil)
 	if err != nil {
-		http.Error(w, "Unable to render page", http.StatusInternalServerError)
+		log.Error().Msgf("failed to render page, error: %v", err)
+		httperror.SendError(w, "Unable to render page", http.StatusInternalServerError)
+		return
 	}
 }

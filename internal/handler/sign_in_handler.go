@@ -47,11 +47,17 @@ func (h *Handler) SignInHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
-func (h *Handler) PageSignInHandler(w http.ResponseWriter, r *http.Request) {
-	signInTemplate, err := template.ParseFiles("internal/templates/sign-in.html")
+func (h *Handler) PageSignInHandler(w http.ResponseWriter, _ *http.Request) {
+	signInTemplate, err := template.ParseFiles("./internal/templates/sign-in.html")
+	if err != nil {
+		log.Error().Msgf("failed to render page, error: %v", err)
+		httperror.SendError(w, "failed to render page", http.StatusBadRequest)
+		return
+	}
+
 	err = signInTemplate.Execute(w, nil)
 	if err != nil {
 		log.Error().Msgf("failed to render page, error: %v", err)
-		http.Error(w, "Unable to render page", http.StatusInternalServerError)
+		httperror.SendError(w, "Unable to render page", http.StatusInternalServerError)
 	}
 }

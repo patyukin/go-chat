@@ -15,5 +15,6 @@ WORKDIR /app
 COPY --from=builder /app/bin/chat .
 ENV YAML_CONFIG_FILE_PATH=config.yaml
 COPY migrations migrations
+COPY internal/templates internal/templates
 
 CMD ["./chat"]
