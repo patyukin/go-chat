@@ -32,7 +32,7 @@ func (h *Handler) PageRoomHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	signInTemplate, err := template.ParseFiles("internal/templates/room.html")
+	signInTemplate, err := template.ParseFiles("./internal/templates/room.html")
 	if err != nil {
 		log.Error().Msgf("failed to render page, error: %v", err)
 		httperror.SendError(w, "Unable to render page", http.StatusInternalServerError)

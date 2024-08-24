@@ -8,6 +8,11 @@ import (
 	"sync"
 )
 
+const (
+	accessToken  = "access_token"
+	refreshToken = "refresh_token"
+)
+
 type UseCase interface {
 	SignUpUseCase(ctx context.Context, in model.SignUpRequest) error
 	SignInUseCase(ctx context.Context, in model.SignInRequest) (model.SignInResponse, error)

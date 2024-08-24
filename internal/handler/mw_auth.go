@@ -7,7 +7,7 @@ import (
 
 func (h *Handler) AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		cookie, err := r.Cookie("access_token")
+		cookie, err := r.Cookie(accessToken)
 		if err != nil {
 			log.Error().Msgf("failed to get cookie, error: %v", err)
 			http.Redirect(w, r, "/sign-in", http.StatusFound)

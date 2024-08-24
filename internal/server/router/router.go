@@ -28,6 +28,8 @@ func Init(h *handler.Handler) http.Handler {
 	r.Handle("POST /sign-in", http.HandlerFunc(h.SignInHandler))
 	r.Handle("GET /sign-in", http.HandlerFunc(h.PageSignInHandler))
 
+	r.Handle("GET /sign-out", http.HandlerFunc(h.PageSignOutHandler))
+
 	r.Handle("GET /", h.AuthMiddleware(http.HandlerFunc(h.PageMainHandler)))
 	r.Handle("GET /rooms/{room_id}", h.AuthMiddleware(http.HandlerFunc(h.PageRoomHandler)))
 	r.Handle("POST /v1/create-room", h.AuthMiddleware(http.HandlerFunc(h.CreateRoomV1Handler)))

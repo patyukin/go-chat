@@ -9,8 +9,6 @@ import (
 	"time"
 )
 
-const accessToken = "access_token"
-
 func (h *Handler) SignInHandler(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		log.Error().Err(err).Msgf("failed to sign in, error: %v", err)
@@ -36,7 +34,7 @@ func (h *Handler) SignInHandler(w http.ResponseWriter, r *http.Request) {
 	})
 
 	http.SetCookie(w, &http.Cookie{
-		Name:     "refresh_token",
+		Name:     refreshToken,
 		Value:    tokens.RefreshToken,
 		Expires:  time.Now().Add(24 * time.Hour),
 		Path:     "/",
